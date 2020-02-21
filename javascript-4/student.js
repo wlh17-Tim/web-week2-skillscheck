@@ -25,9 +25,13 @@ let me = {
     firstName: 'Tim',
     superHeroName: 'The Enchanter',
     homeTown: 'Camelot',
-    superPowers: 'Conjure fire without flint or tinder',
-    superPowerXP: Math.floor(Math.random() * 100) + 1,
-    profileImage: `https://randomuser.me/api/portraits/med/lego/${Math.floor(Math.random() * 10) + 1 }.jpg`
+    superPowers: ['Conjure fire without flint or tinder', 'teleport', 'heckle'],
+    superPowerXP: function(){
+        return Math.floor(Math.random() * 100) + 1
+    },
+    profileImage: function(){
+        return `https://randomuser.me/api/portraits/med/lego/${Math.floor(Math.random() * 10) + 1 }.jpg`
+    }
 }
 
 //////////////////Step 3////////////////////
@@ -43,23 +47,22 @@ let homeTown = me.homeTown;
 // Next, create a for loop to loop over the remaining three colors. If any of the colors is 'blue', change it's value to '#4D4DFF' (which is just a more appealing shade of blue). Outside of the for loop but still inside of setColor, invoke the function called 'background' which will take in three arguments. These arguments should be the three items remaining in your colors array. 
 
 function setColor(arr){
-    arr.splice(2);
-    for(let i = 0; i <= arr.length -1; i++){
+    arr.splice(3);
+    for(let i = 0; i < arr.length; i++){
         if(arr[i] === 'blue'){
             arr[i] = '#4D4DFF'
         }
     }
-    background(arr);
+    background(...arr);
 }
 
 //////////////////Step 5////////////////////
 //Create a function called 'setPowers' that takes in 'arr' as a parameter. In your setPowers function, loop over the arr parameter and run a function we created called createLi(), which will take each item of the array as an argument. Remember, you did not create the createLi function. The createLi function is a function we created that determines how the content is displayed.
 
 function setPowers(arr){
-    for(let i = 0; i <= arr.length - 1; i++){
-        createLi(arr[i])
-    }
+    arr.forEach(x => createLi(x))
 }
+
 
 
 //////////////////Step 6////////////////////
@@ -67,7 +70,7 @@ function setPowers(arr){
 
 function redactInfo(obj){
     for(let key in obj){
-        key = 'redacted'
+        obj[key] = 'redacted'
     }
     redacted();
 }
